@@ -1,29 +1,106 @@
+/* =========================
+   ROOT
+   ========================= */
+
+html,
 body {
-  background: linear-gradient(to bottom, #ffe4ec, #fff);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* =========================
+   BODY — NO PINK CANVAS
+   ========================= */
+
+body {
+  background: #ffffff; /* 🔑 NO outer pink */
   font-family: "Segoe UI", system-ui, sans-serif;
   color: #333;
 }
 
+/* =========================
+   HERO CARD = FULL SCREEN
+   ========================= */
+
 .hero-card {
-  background: rgba(255, 255, 255, 0.75);
+  width: 100%;
+  height: 100svh; /* fills entire mobile screen */
+  background: rgba(255, 255, 255, 0.96);
+
+  /* soft inner glass look */
   backdrop-filter: blur(12px);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  padding: 2.5rem 2rem;
+
+  /* rounded only on desktop */
+  border-radius: 0;
+
+  box-shadow: none;
+
+  padding: 2.6rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+/* =========================
+   DESKTOP ONLY — FLOATING CARD
+   ========================= */
+
+@media (min-width: 768px) {
+  body {
+    background: linear-gradient(to bottom, #ffe4ec, #fff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-card {
+    max-width: 420px;
+    height: auto;
+    min-height: 92vh;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+
 .rose-btn {
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #ff5f87, #c2185b);
   color: white;
   border-radius: 999px;
   padding: 12px 20px;
   border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 95, 135, 0.4);
   transition: transform 0.2s ease;
 }
 
 .rose-btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
+
+/* =========================
+   LOCKED BUTTON STYLE
+   ========================= */
+
+.day-button-locked {
+  background: #f2f2f2;
+  color: #aaa;
+  border-radius: 999px;
+  padding: 12px 20px;
+  border: none;
+  font-size: 14px;
+}
+
+/* =========================
+   TOAST
+   ========================= */
 
 .toast-love {
   position: fixed;
@@ -35,7 +112,12 @@ body {
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   font-size: 14px;
+  z-index: 100;
 }
+
+/* =========================
+   ICONS / MINI CARDS
+   ========================= */
 
 .rose-icon {
   width: 48px;

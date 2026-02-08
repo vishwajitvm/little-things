@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import RoseDay from "./pages/RoseDay";
 import ChocolateDay from "./pages/ChocolateDay";
 import TeddyDay from "./pages/TeddyDay";
+import ProposeDay from "./pages/ProposeDay";
 
 export default function App() {
   const [page, setPage] = useState("home");
@@ -15,6 +16,8 @@ export default function App() {
         return <ChocolateDay goBack={() => setPage("home")} />;
       case "teddy":
         return <TeddyDay goBack={() => setPage("home")} />;
+      case "propose":
+        return <ProposeDay goBack={() => setPage("home")} />;
       default:
         return <Home navigate={setPage} />;
     }

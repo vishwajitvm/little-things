@@ -15,6 +15,17 @@ export default function Home({ navigate }) {
           overflow: hidden;
         }
 
+        /* 🔧 MOBILE FIX */
+        @media (max-width: 768px) {
+          .home-container {
+            align-items: flex-start;
+            justify-content: flex-start;
+            overflow-y: auto;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
+
         .home-container::before {
           content: '';
           position: absolute;
@@ -55,17 +66,12 @@ export default function Home({ navigate }) {
           position: relative;
           z-index: 1;
           animation: slideUp 0.8s ease-out;
+          margin-bottom: 3rem; /* allows scroll breathing room */
         }
 
         @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         .title-section {
@@ -78,9 +84,7 @@ export default function Home({ navigate }) {
           background: linear-gradient(135deg, #ff6b9d 0%, #c2185b 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          background-clip: text;
           margin-bottom: 1rem;
-          letter-spacing: -0.5px;
         }
 
         .decorative-line {
@@ -118,37 +122,10 @@ export default function Home({ navigate }) {
           overflow: hidden;
         }
 
-        .day-button::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transform: translate(-50%, -50%);
-          transition: width 0.6s, height 0.6s;
-        }
-
-        .day-button:hover::before {
-          width: 300px;
-          height: 300px;
-        }
-
         .day-button-active {
           background: linear-gradient(135deg, #ff6b9d 0%, #c2185b 100%);
           color: white;
           box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
-        }
-
-        .day-button-active:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 25px rgba(255, 107, 157, 0.5);
-        }
-
-        .day-button-active:active {
-          transform: translateY(-1px) scale(0.98);
         }
 
         .day-button-locked {
@@ -161,10 +138,10 @@ export default function Home({ navigate }) {
         .day-button-locked::after {
           content: '🔒';
           position: absolute;
-          right: 2rem;
+          right: 1.5rem;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           opacity: 0.5;
         }
 
@@ -173,20 +150,12 @@ export default function Home({ navigate }) {
           color: #999;
           font-style: italic;
           margin-top: 2rem;
-          opacity: 0;
-          animation: fadeIn 1s ease-out 0.5s forwards;
-        }
-
-        @keyframes fadeIn {
-          to { opacity: 1; }
         }
 
         .floating-hearts {
           position: absolute;
-          width: 100%;
-          height: 100%;
+          inset: 0;
           pointer-events: none;
-          overflow: hidden;
         }
 
         .heart {
@@ -196,24 +165,9 @@ export default function Home({ navigate }) {
           animation: floatHeart 15s infinite ease-in-out;
         }
 
-        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .heart:nth-child(2) { left: 30%; animation-delay: 3s; }
-        .heart:nth-child(3) { left: 50%; animation-delay: 6s; }
-        .heart:nth-child(4) { left: 70%; animation-delay: 9s; }
-        .heart:nth-child(5) { left: 90%; animation-delay: 12s; }
-
         @keyframes floatHeart {
-          0% {
-            bottom: -10%;
-            transform: translateX(0) rotate(0deg);
-          }
-          50% {
-            transform: translateX(50px) rotate(180deg);
-          }
-          100% {
-            bottom: 110%;
-            transform: translateX(-50px) rotate(360deg);
-          }
+          0% { bottom: -10%; }
+          100% { bottom: 110%; }
         }
 
         @media (max-width: 480px) {
@@ -222,25 +176,18 @@ export default function Home({ navigate }) {
           }
 
           .day-button {
+            font-size: 1rem;
             padding: 1.1rem 1.5rem;
-            font-size: 1rem;
-          }
-
-          .day-button-locked::after {
-            right: 1.5rem;
-            font-size: 1rem;
           }
         }
       `}</style>
 
       <div className="home-container">
-        {/* Floating Hearts Background */}
         <div className="floating-hearts">
-          <div className="heart">🌸</div>
-          <div className="heart">💕</div>
-          <div className="heart">🌺</div>
-          <div className="heart">💖</div>
-          <div className="heart">🌸</div>
+          <div className="heart" style={{ left: "15%" }}>🌸</div>
+          <div className="heart" style={{ left: "35%" }}>💕</div>
+          <div className="heart" style={{ left: "55%" }}>🌺</div>
+          <div className="heart" style={{ left: "75%" }}>💖</div>
         </div>
 
         <div className="content-card">
@@ -256,45 +203,21 @@ export default function Home({ navigate }) {
           </p>
 
           <div className="buttons-container">
-            <button
-              onClick={() => navigate("rose")}
-              className="day-button day-button-active"
-            >
+            <button onClick={() => navigate("rose")} className="day-button day-button-active">
               🌹 Rose Day
             </button>
 
-            <button
-              disabled
-              className="day-button day-button-locked"
-            >
-              🍫 Chocolate Day
+            <button onClick={() => navigate("propose")} className="day-button day-button-active">
+              💌 Propose Day
             </button>
 
-            <button
-              disabled
-              className="day-button day-button-locked"
-            >
-              🧸 Teddy Day
-            </button>
-
-            <button
-              disabled
-              className="day-button day-button-locked"
-            >
-              💝 Promise Day
-            </button>           
-
-            <button
-              disabled
-              className="day-button day-button-locked"
-            >
-              ❤️ Valentine's Day
-            </button>
+            <button disabled className="day-button day-button-locked">🍫 Chocolate Day</button>
+            <button disabled className="day-button day-button-locked">🧸 Teddy Day</button>
+            <button disabled className="day-button day-button-locked">💝 Promise Day</button>
+            <button disabled className="day-button day-button-locked">❤️ Valentine’s Day</button>
           </div>
 
-          <p className="footer-text">
-            some things unfold slowly ✨
-          </p>
+          <p className="footer-text">some things unfold slowly ✨</p>
         </div>
       </div>
     </>
