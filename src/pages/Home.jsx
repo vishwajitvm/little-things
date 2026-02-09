@@ -211,7 +211,15 @@ export default function Home({ navigate }) {
               💌 Propose Day
             </button>
 
-            <button disabled className="day-button day-button-locked">🍫 Chocolate Day</button>
+            <button 
+              onClick={() => navigate("chocolate")} 
+              className="day-button day-button-active chocolate-btn"
+            >
+              🍫 Chocolate Day
+            </button>
+
+
+            {/* <button disabled className="day-button day-button-locked">🍫 Chocolate Day</button> */}
             <button disabled className="day-button day-button-locked">🧸 Teddy Day</button>
             <button disabled className="day-button day-button-locked">💝 Promise Day</button>
             <button disabled className="day-button day-button-locked">❤️ Valentine’s Day</button>
