@@ -2,10 +2,22 @@ import React, { useEffect, useState } from "react";
 
 export default function ChocolateDay({ goBack }) {
   const [visible, setVisible] = useState(false);
+  const [bite, setBite] = useState(0);
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 200);
   }, []);
+
+  const handleBite = () => {
+    if (bite < 3) setBite(bite + 1);
+  };
+
+  const cloudMessages = [
+    "",
+    "Hehe… that was a soft bite ☁️",
+    "Slowly slowly, cutie pie 🤎",
+    "All gone… but the sweetness stays ❤️"
+  ];
 
   return (
     <>
@@ -15,73 +27,52 @@ export default function ChocolateDay({ goBack }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(180deg, #3e2723 0%, #4e342e 50%, #2e1c16 100%);
+          background: linear-gradient(180deg, #fce4ec 0%, #f8bbd0 50%, #d7ccc8 100%);
           padding: 2rem;
           text-align: center;
-          color: #fff;
           position: relative;
           overflow: hidden;
         }
 
-        /* Flowing chocolate waves */
-        .wave {
+        /* Background floating clouds */
+        .cloud-bg {
           position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 200%;
-          height: 200px;
-          background: radial-gradient(circle at 50% 50%, #5d4037 40%, #3e2723 70%);
-          opacity: 0.4;
-          border-radius: 45%;
-          animation: waveMove 12s linear infinite;
-        }
-
-        .wave:nth-child(1) {
-          animation-duration: 18s;
-          opacity: 0.35;
-        }
-
-        .wave:nth-child(2) {
-          animation-duration: 25s;
-          opacity: 0.25;
-          bottom: -20px;
-        }
-
-        @keyframes waveMove {
-          from { transform: translateX(0) rotate(0deg); }
-          to { transform: translateX(-50%) rotate(360deg); }
-        }
-
-        /* Chocolate drip */
-        .drip {
-          position: absolute;
-          top: 0;
-          width: 60px;
-          height: 120px;
-          background: #5d4037;
-          border-radius: 30px;
-          animation: dripFall 6s infinite ease-in-out;
+          background: white;
+          border-radius: 50%;
           opacity: 0.5;
+          filter: blur(12px);
+          animation: floatCloud linear infinite;
         }
 
-        .drip:nth-child(3) { left: 20%; animation-delay: 0s; }
-        .drip:nth-child(4) { left: 50%; animation-delay: 2s; }
-        .drip:nth-child(5) { left: 75%; animation-delay: 4s; }
+        .cloud1 {
+          width: 200px;
+          height: 80px;
+          top: 20%;
+          left: -200px;
+          animation-duration: 60s;
+        }
 
-        @keyframes dripFall {
-          0% { transform: translateY(-150px); opacity: 0; }
-          40% { opacity: 0.6; }
-          100% { transform: translateY(110vh); opacity: 0; }
+        .cloud2 {
+          width: 150px;
+          height: 60px;
+          top: 60%;
+          left: -150px;
+          animation-duration: 75s;
+        }
+
+        @keyframes floatCloud {
+          from { transform: translateX(0); }
+          to { transform: translateX(120vw); }
         }
 
         .choco-card {
-          max-width: 540px;
+          max-width: 560px;
           width: 100%;
-          background: rgba(255,255,255,0.08);
-          backdrop-filter: blur(14px);
+          background: rgba(255,255,255,0.65);
+          backdrop-filter: blur(20px);
           border-radius: 30px;
           padding: 3rem 2rem;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.1);
           opacity: ${visible ? 1 : 0};
           transform: ${visible ? "translateY(0)" : "translateY(40px)"};
           transition: all 1s ease;
@@ -93,18 +84,111 @@ export default function ChocolateDay({ goBack }) {
           font-size: clamp(2.5rem, 6vw, 3.5rem);
           font-weight: 700;
           margin-bottom: 1rem;
+          color: #6d4c41;
         }
 
         .choco-message {
-          font-size: 1.15rem;
+          font-size: 1.1rem;
           line-height: 1.9;
-          margin-top: 1.5rem;
-          opacity: 0.95;
+          color: #4e342e;
         }
 
         .highlight {
-          color: #ffccbc;
+          color: #8d6e63;
           font-weight: 600;
+        }
+
+        /* Chocolate wrapper */
+        .chocolate-wrapper {
+          margin-top: 3rem;
+          cursor: pointer;
+          display: inline-block;
+          position: relative;
+          overflow: visible;
+        }
+
+        .chocolate-bar {
+          width: 220px;
+          height: 90px;
+          background: linear-gradient(145deg, #8d6e63, #5d4037);
+          border-radius: 18px;
+          position: relative;
+          overflow: hidden;
+          transition: 0.5s ease;
+        }
+
+        .chocolate-bar::before {
+          content: '';
+          position: absolute;
+          inset: 12px;
+          background: repeating-linear-gradient(
+            90deg,
+            #6d4c41 0px,
+            #6d4c41 35px,
+            #5d4037 35px,
+            #5d4037 70px
+          );
+          border-radius: 12px;
+        }
+
+        /* Smooth bite shapes */
+        .bite-1 {
+          clip-path: ellipse(80% 90% at 85% 10%);
+        }
+
+        .bite-2 {
+          clip-path: ellipse(65% 90% at 90% 15%);
+        }
+
+        .bite-3 {
+          clip-path: ellipse(50% 85% at 95% 20%);
+        }
+
+        /* Speech cloud */
+        .speech-cloud {
+          position: absolute;
+          bottom: 120px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: white;
+          color: #5d4037;
+          padding: 14px 20px;
+          border-radius: 20px;
+          font-size: 0.95rem;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+          animation: floatUpFade 0.4s ease;
+          max-width: 240px;
+          text-align: center;
+          line-height: 1.4;
+        }
+
+        .speech-cloud::after {
+          content: "";
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 10px;
+          border-style: solid;
+          border-color: white transparent transparent transparent;
+        }
+
+        @keyframes floatUpFade {
+          from { opacity: 0; transform: translate(-50%, 10px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        .eat-text {
+          margin-top: 1rem;
+          font-size: 1rem;
+          color: #5d4037;
+        }
+
+        .reset-btn {
+          margin-top: 1rem;
+          font-size: 0.9rem;
+          cursor: pointer;
+          color: #6d4c41;
         }
 
         .back-btn {
@@ -112,8 +196,8 @@ export default function ChocolateDay({ goBack }) {
           padding: 0.9rem 2rem;
           border-radius: 50px;
           border: none;
-          background: linear-gradient(135deg, #d7ccc8, #bcaaa4);
-          color: #3e2723;
+          background: linear-gradient(135deg, #a1887f, #8d6e63);
+          color: #fff;
           font-weight: 600;
           cursor: pointer;
           transition: 0.3s ease;
@@ -126,32 +210,54 @@ export default function ChocolateDay({ goBack }) {
 
       <div className="choco-container">
 
-        <div className="wave"></div>
-        <div className="wave"></div>
-
-        <div className="drip"></div>
-        <div className="drip"></div>
-        <div className="drip"></div>
+        <div className="cloud-bg cloud1"></div>
+        <div className="cloud-bg cloud2"></div>
 
         <div className="choco-card">
           <h1 className="choco-title">Happy Chocolate Day 🍫</h1>
 
           <div className="choco-message">
-            <span className="highlight">Drrishti</span> 🤎  
+            <span className="highlight">My cutie pie, Drrishti</span> ☁️🤎  
             <br /><br />
             My cutie pie…  
-            chocolate is sweet, soft, and comforting —  
-            but somehow, being around you feels even warmer.
+            chocolate melts gently, just like the calm feeling I get around you.
             <br /><br />
-            You have this quiet way of making ordinary moments  
-            feel lighter… happier… softer.
-            <br /><br />
-            So today isn’t about chocolates.  
-            It’s about appreciating the sweetness  
-            you bring without even trying.
-            <br /><br />
-            And honestly… that’s my favorite part.
+            So here’s a little chocolate — just for you.
           </div>
+
+          <div className="chocolate-wrapper" onClick={handleBite}>
+            {bite > 0 && (
+              <div key={bite} className="speech-cloud">
+                {cloudMessages[bite]}
+              </div>
+            )}
+
+            <br />
+            <br />
+            <br />
+
+            <div
+              className={`chocolate-bar ${
+                bite === 1 ? "bite-1" :
+                bite === 2 ? "bite-2" :
+                bite === 3 ? "bite-3" : ""
+              }`}
+            ></div>
+
+            {bite === 0 && (
+              <div className="eat-text">
+                Click here to eat it, cutie pie 🍫
+              </div>
+            )}
+          </div>
+
+          {bite === 3 && (
+            <div className="reset-btn" onClick={() => setBite(0)}>
+              Want another one? 🍫
+            </div>
+          )}
+          <br />
+          <br />
 
           <button className="back-btn" onClick={goBack}>
             Go Back
